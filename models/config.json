@@ -1,0 +1,11 @@
+{
+  "data":"data/",
+  "threshold":5,
+  "epoch":50,
+  "emb_size":128,
+  "hidden_size":128,
+  "batch":32,
+  "log_interval":5,
+  "dropout":0.2
+
+}
