@@ -4,10 +4,12 @@ import pickle
 import torch
 
 from com.utils import shuffle_data, padding, pad_answer, get_model_parameters
+from models.bidaf import BiDAF
+from models.dcn import DCN
 from models.mwan_full import MwAN_full
 from models.mwan_ori import MwAN
 
-opts=json.load(open("models/config.json"))
+opts=json.load(open("models/mwan_config.json"))
 parser = argparse.ArgumentParser(description='PyTorch implementation for Multiway Attention Networks for Modeling '
                                              'Sentence Pairs of the AI-Challenges')
 parser.add_argument('--cuda', action='store_true',
@@ -77,13 +79,17 @@ def main():
 
 
 if __name__ == '__main__':
-    # vocab_size = process_data(opts["data"], args.threshold)
-    vocab_size = 98745
+    # model = MwAN_full(vocab_size=opts["vocab_size"], embedding_size=opts["emb_size"], encoder_size=opts["hidden_size"],
+    #                   drop_out=opts["dropout"])  # 16821760 | 5 epoch -> 69.12 on test 69.36 on dev
 
-    # model = MwAN(vocab_size=vocab_size, embedding_size=opts["emb_size"], encoder_size=opts["hidden_size"],
+    # model = MwAN(vocab_size=opts["vocab_size"], embedding_size=opts["emb_size"], encoder_size=opts["hidden_size"],
     #                   drop_out=opts["dropout"]) # 14751104
-    model = MwAN_full(vocab_size=vocab_size, embedding_size=opts["emb_size"], encoder_size=opts["hidden_size"],
-                      drop_out=opts["dropout"])  # 16821760
+
+    model = DCN(vocab_size=opts["vocab_size"], embedding_size=opts["emb_size"], encoder_size=opts["hidden_size"],
+                      drop_out=opts["dropout"])  # 13770496
+
+    # model = BiDAF(vocab_size=opts["vocab_size"], embedding_size=opts["emb_size"], encoder_size=opts["hidden_size"],
+    #             drop_out=opts["dropout"])  #
     print('Model total parameters:', get_model_parameters(model))
     if args.cuda:
         model.cuda()

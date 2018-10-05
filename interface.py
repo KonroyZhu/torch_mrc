@@ -17,7 +17,7 @@ parser.add_argument('--data', type=str,
 parser.add_argument('--word_path', type=str, default='data/word2id.obj',
                     help='location of the word2id.obj')
 
-parser.add_argument('--output', type=str, default='data/prediction.a.txt',
+parser.add_argument('--output', type=str, default='data/4th-submita.txt',
                     help='prediction path')
 parser.add_argument('--model', type=str, default='net/mwan_f0.pt',
                     help='model path')
@@ -52,7 +52,7 @@ with open(args.word_path, 'rb') as f:
     word2id = pickle.load(f)
 
 # raw_data = seg_data(args.data)
-raw_data=pickle.load(open("data/dev_seg.pkl","rb"))
+raw_data=pickle.load(open("data/testa_seg.pkl","rb"))
 transformed_data = transform_data_to_id(raw_data, word2id)
 data = [x + [y[2]] for x, y in zip(transformed_data, raw_data)]
 data = sorted(data, key=lambda x: len(x[1]))
@@ -89,7 +89,7 @@ def inference():
     outputs = u'\n'.join(predictions)
     with codecs.open(args.output, 'w',encoding='utf-8') as f:
         f.write(outputs)
-    with open("pkl_records/dev0.pkl","wb") as f:
+    with open("pkl_records/dev11.pkl","wb") as f:
         pickle.dump(id_prediction,f)
     print('done!')
 

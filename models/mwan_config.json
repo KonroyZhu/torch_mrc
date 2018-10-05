@@ -6,6 +6,7 @@
   "hidden_size":128,
   "batch":32,
   "log_interval":5,
-  "dropout":0.2
+  "dropout":0.2,
+  "vocab_size":98745
 
 }

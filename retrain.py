@@ -8,7 +8,7 @@ from models.mwan_full import MwAN_full
 from train import test, train
 
 
-opts=json.load(open("models/config.json"))
+opts=json.load(open("models/mwan_config.json"))
 parser = argparse.ArgumentParser(description='PyTorch implementation for Multiway Attention Networks for Modeling '
                                              'Sentence Pairs of the AI-Challenges')
 parser.add_argument('--cuda', action='store_true',
